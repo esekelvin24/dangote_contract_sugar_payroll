@@ -183,7 +183,10 @@ $absent = "";
                                                                                  {
                                                                                     $total_deduction  = $total_deduction  - $staff_data->amount;
                                                                                  }
-                                                                                 $netpay = $netpay + $staff_data->amount;
+
+                                                                                 
+
+                                                                                   $netpay = $netpay + $staff_data->amount;
 
                                                                                  @endphp
 

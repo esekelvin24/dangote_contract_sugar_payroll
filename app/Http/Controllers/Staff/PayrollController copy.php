@@ -535,42 +535,35 @@ class PayrollController extends Controller
                     $overtime = $this->cal_overtime($overtime_hrs, ($desg_salary + $staff_other_allw), $default_working_days, $work_daily_hrs);
                     $overtime = round($overtime,2);
 
-                   
+                    $payee_after_ded = $this->cal_payee(($desg_salary + $staff_other_allw + $overtime + $arrears[$staff_id])) * -1;                     
+                    $payee_after_ded = round($payee_after_ded,2);
                    
                     
-                   
-                    $daily_gross_salary = (($desg_salary + $staff_other_allw) / ($weekdays + $estimated_workday_gap)) * -1; //Daily Net salary
-                    $daily_gross_salary = round($daily_gross_salary, 2);
+                    $net_salary = ($desg_salary + $staff_other_allw) - ($payee_after_ded * -1); //Net salary after removing payee
+
+                    $daily_net_salary = ($net_salary / ($weekdays + $estimated_workday_gap)) * -1; //Daily Net salary
+                    $daily_net_salary = round($daily_net_salary,2);
                    
                     $staff_type = $payroll_details[0]->staff_type_id;
 
-                    $absent_deduction = round($daily_gross_salary * ($absent_days),2);
-
-                    //for temporary staff
-                    $present_days_amt = round(($present_days + $estimated_workday_gap) * $daily_gross_salary,2) * -1;
-                    //temporary staff
-                    $total = $overtime + $present_days_amt + $arrears[$staff_id]  + $advance[$staff_id];
+                    if ($absent_days == $weekdays) //if the staff never came to work through out this month
+                    {
+                        $absent_deduction = round($daily_net_salary * ($absent_days + $estimated_workday_gap),2) ;
+                    }else
+                    {
+                        $absent_deduction = round($daily_net_salary * ($absent_days),2); //for temporary staff deduct only the absent days from the net salary
+                    }
                     
-                    $daily_gross_salary = $daily_gross_salary * -1;
+                    $daily_net_salary = $daily_net_salary * -1;
 
                     if($staff_type == "ST02") //casual staff
                     {
-                        $present_days = $present_days +  $week_ends;
-                        $present_days_amt = round($present_days * $daily_gross_salary,2);
-                       
-                        $total = $overtime + $present_days_amt + $arrears[$staff_id]  + $advance[$staff_id];
-                        
-                        
-                        $payee_after_ded = $this->cal_payee($total) * -1;                     
-                        $payee_after_ded = round($payee_after_ded,2);
-
-                       
                         $absent_deduction = 0;
-                        //$absent_deduction = round($daily_gross_salary * ($absent_days),2);
+                        //$absent_deduction = round($daily_net_salary * ($absent_days),2);
 
+                        $present_days = $present_days +  $week_ends;
                         
-                        
-                        $casual_payment = $daily_gross_salary * $present_days;
+                        $casual_payment = $daily_net_salary * $present_days;
                         
 
                         $insertion_arr[] = [
@@ -594,7 +587,7 @@ class PayrollController extends Controller
                             'gross_salary' => strval($desg_salary + $staff_other_allw),
                             'default_working_days' => $default_working_days,
                             'absent_deduction' => strval($absent_deduction),
-                            'daily_gross_salary' => strval($daily_gross_salary)
+                            'daily_net_salary' => strval($daily_net_salary)
             
                         ];
 
@@ -604,11 +597,6 @@ class PayrollController extends Controller
                     
                     if($staff_type == "ST01") //Temporary staff
                     {
-
-                    $payee_after_ded = $this->cal_payee($total) * -1;                     
-                    $payee_after_ded = round($payee_after_ded,2); 
-                    
-                  
                    
                     $insertion_arr[] = [
                             'payroll_id' => $payroll_id,
@@ -631,8 +619,7 @@ class PayrollController extends Controller
                             'gross_salary' => strval($desg_salary + $staff_other_allw),
                             'default_working_days' => $default_working_days,
                             'absent_deduction' => strval($absent_deduction),
-                            'daily_gross_salary' => strval($daily_gross_salary),
-                            'present_days_amt' => strval($present_days_amt)
+                            'daily_net_salary' => strval($daily_net_salary)
             
                         ];
 
@@ -656,18 +643,16 @@ class PayrollController extends Controller
                             'month_of' => strval($payroll_month),
                             'overtime_hrs' => $overtime_hrs,
                             'overtime_pay' => strval($overtime),
-                            'entry_order' => 4, 
+                            'entry_order' => 3, 
                             'payee' => strval($payee_after_ded), 
                             'gross_salary' => strval($desg_salary + $staff_other_allw),
                             'default_working_days' => $default_working_days,
                             'absent_deduction' => strval($absent_deduction),
-                            'daily_gross_salary' => strval($daily_gross_salary),
-                            'present_days_amt' => strval($present_days_amt)
+                            'daily_net_salary' => strval($daily_net_salary)
             
                         ];
                     }
 
-                    //this can applies temporary or casual staff
                         if ($staff_other_allw > 0)
                         {
                             $insertion_arr[] = [
@@ -686,18 +671,16 @@ class PayrollController extends Controller
                                 'month_of' => $payroll_month,
                                 'overtime_hrs' => $overtime_hrs,
                                 'overtime_pay' => strval($overtime),
-                                'entry_order' => 2, 
+                                'entry_order' => 5, 
                                 'payee' => strval($payee_after_ded), 
                                 'gross_salary' => strval($desg_salary + $staff_other_allw),
                                 'default_working_days' => $default_working_days,
                                 'absent_deduction' => strval($absent_deduction),
-                                'daily_gross_salary' => strval($daily_gross_salary),
-                                'present_days_amt' => strval($present_days_amt)
+                                'daily_net_salary' => strval($daily_net_salary)
                 
                             ];
                         }
                         
-                    //this can applies temporary or casual staff
                     if ($overtime > 0)
                     {
                         $insertion_arr[] = [
@@ -716,20 +699,19 @@ class PayrollController extends Controller
                             'month_of' => $payroll_month,
                             'overtime_hrs' => $overtime_hrs,
                             'overtime_pay' => strval($overtime),
-                            'entry_order' => 5, 
+                            'entry_order' => 4, 
                             'payee' => strval($payee_after_ded), 
                             'gross_salary' => $desg_salary + $staff_other_allw,
                             'default_working_days' => $default_working_days,
-                            'absent_deduction' => strval($absent_deduction),
-                            'daily_gross_salary' => strval($daily_gross_salary),
-                            'present_days_amt' => strval($present_days_amt)
+                            'absent_deduction' => $absent_deduction,
+                            'daily_net_salary' => strval($daily_net_salary)
             
                         ];
                     }
                         
                     
 
-                     //this can applies temporary or casual staff
+
                         if ($advance[$staff_id] > 0)
                         {
                             $ad_amount =  $advance[$staff_id] * -1;
@@ -755,8 +737,7 @@ class PayrollController extends Controller
                                 'gross_salary' => strval($desg_salary + $staff_other_allw),
                                 'default_working_days' => $default_working_days,
                                 'absent_deduction' => strval($absent_deduction),
-                                'daily_gross_salary' => strval($daily_gross_salary),
-                                'present_days_amt' => strval($present_days_amt)
+                                'daily_net_salary' => strval($daily_net_salary)
                 
                             ];
 
@@ -767,7 +748,6 @@ class PayrollController extends Controller
                             ->where("payment_description","=","Salary Advance")->delete(); 
                         }
 
-                        //this can applies temporary or casual staff
                         if ($arrears[$staff_id] > 0 )
                         {
                             $ar_money = $arrears[$staff_id] * 1;
@@ -793,8 +773,7 @@ class PayrollController extends Controller
                                 'gross_salary' => strval($desg_salary + $staff_other_allw),
                                 'default_working_days' => $default_working_days,
                                 'absent_deduction' => strval($absent_deduction),
-                                'daily_gross_salary' => strval($daily_gross_salary),
-                                'present_days_amt' => strval($present_days_amt)
+                                'daily_net_salary' => strval($daily_net_salary)
                 
                             ]; 
                         }else //remove thie Addition
@@ -805,41 +784,37 @@ class PayrollController extends Controller
                         }
 
  
-                        if($staff_type == "ST01") //Temporary staff
+                        if ($absent_days > 0)
                         {
-                                if ($absent_days > 0)
-                                {
-                                
-                                    
+                           
+                            
 
-                                // dd($absent_deduction);
-                                    $insertion_arr[] = [
-                                        'payroll_id' => $payroll_id,
-                                        'staff_id' => $staff_id,
-                                        'payment_type' => 'Deduction',
-                                        'cat_group_id' => $cat_grp_id,
-                                        'payment_description' => 'Absent From Work',
-                                        'amount' => strval($absent_deduction),
-                                        'created_at' => NOW(),
-                                        'created_by' => Auth::user()->email,
-                                        'absence_from_work' => $absent_days,
-                                        'days_worked' => $present_days,
-                                        'advance' => strval($advance[$staff_id]),
-                                        'arrears' => strval($arrears[$staff_id]),
-                                        'month_of' => $payroll_month,
-                                        'overtime_hrs' => $overtime_hrs,
-                                        'overtime_pay' => strval($overtime),
-                                        'entry_order' => 3, 
-                                        'payee' => strval($payee_after_ded), 
-                                        'gross_salary' => strval($desg_salary + $staff_other_allw),
-                                        'default_working_days' => $default_working_days,
-                                        'absent_deduction' => strval($absent_deduction),
-                                        'daily_gross_salary' => strval($daily_gross_salary),
-                                        'present_days_amt' => strval($present_days_amt)
-                        
-                                    ];
-                                }
-                            }
+                           // dd($absent_deduction);
+                            $insertion_arr[] = [
+                                'payroll_id' => $payroll_id,
+                                'staff_id' => $staff_id,
+                                'payment_type' => 'Deduction',
+                                'cat_group_id' => $cat_grp_id,
+                                'payment_description' => 'Absent From Work',
+                                'amount' => strval($absent_deduction),
+                                'created_at' => NOW(),
+                                'created_by' => Auth::user()->email,
+                                'absence_from_work' => $absent_days,
+                                'days_worked' => $present_days,
+                                'advance' => strval($advance[$staff_id]),
+                                'arrears' => strval($arrears[$staff_id]),
+                                'month_of' => $payroll_month,
+                                'overtime_hrs' => $overtime_hrs,
+                                'overtime_pay' => strval($overtime),
+                                'entry_order' => 2, 
+                                'payee' => strval($payee_after_ded), 
+                                'gross_salary' => strval($desg_salary + $staff_other_allw),
+                                'default_working_days' => $default_working_days,
+                                'absent_deduction' => strval($absent_deduction),
+                                'daily_net_salary' => strval($daily_net_salary)
+                
+                            ];
+                        }
                         
                          
                
@@ -920,39 +895,38 @@ class PayrollController extends Controller
 
     }
 
-    public function cal_payee($monthly_gross = 0)
+    public function cal_payee($monthly_growths = 0)
     {
         $payee = 0;
         
         //calculating relief
-        $gross_20_percent = (0.2 * $monthly_gross);
-        $total_relief = $gross_20_percent + 16666.67;
-        $taxable_income = $monthly_gross - $total_relief;
-        dd($taxable_income);
+        $monthly_growths = $monthly_growths - (0.2 * $monthly_growths + 16666.67);
         
-       
-        if ($taxable_income <= 25000)
+        
+        //end of calculating relief
+        
+        if ($monthly_growths <= 25000)
         {
-            $payee = $taxable_income * 7 / 100;
+            $payee = $monthly_growths * 7 / 100;
         }
-        else if ($taxable_income > 25000 && $taxable_income <=50000)
+        else if ($monthly_growths > 25000 && $monthly_growths <=50000)
         {
-           $payee = 1750 + (($taxable_income - 25000) * 11 / 100);
+           $payee = 1750 + (($monthly_growths - 25000) * 11 / 100);
         }
-        else if ($taxable_income > 50000 && $taxable_income <=91666)
+        else if ($monthly_growths > 50000 && $monthly_growths <=91666)
         {
-           $payee = 4500 + (($taxable_income - 50000) *15/100);
+           $payee = 4500 + (($monthly_growths - 50000) *15/100);
         }
-        else if ($taxable_income > 91666 && $taxable_income <=133332)
+        else if ($monthly_growths > 91666 && $monthly_growths <=133332)
         {
-          $payee = 10749.9 + (($taxable_income - 91666) *19/100);
+          $payee = 10749.9 + (($monthly_growths - 91666) *19/100);
         }
-        else if ($taxable_income > 133332 && $taxable_income <=266665)
+        else if ($monthly_growths > 133332 && $monthly_growths <=266665)
         {
-          $payee = 18666.44 + (($taxable_income - 133332) * 21/100);
+          $payee = 18666.44 + (($monthly_growths - 133332) * 21/100);
         }else
         {
-           $payee = 46666.37 + (($taxable_income - 266665) * 24/100);
+           $payee = 46666.37 + (($monthly_growths - 266665) * 24/100);
         }
        
        
