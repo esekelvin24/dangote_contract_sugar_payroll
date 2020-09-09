@@ -563,7 +563,8 @@ class PayrollController extends Controller
                         
                         $payee_after_ded = $this->cal_payee($total) * -1;                     
                         $payee_after_ded = round($payee_after_ded,2);
-
+                        
+                        
                        
                         $absent_deduction = 0;
                         //$absent_deduction = round($daily_gross_salary * ($absent_days),2);
@@ -594,9 +595,13 @@ class PayrollController extends Controller
                             'gross_salary' => strval($desg_salary + $staff_other_allw),
                             'default_working_days' => $default_working_days,
                             'absent_deduction' => strval($absent_deduction),
-                            'daily_gross_salary' => strval($daily_gross_salary)
+                            'daily_gross_salary' => strval($daily_gross_salary),
+                            'present_days_amt' => strval($present_days_amt)
             
                         ];
+
+                   
+
 
 
                     }
@@ -638,7 +643,7 @@ class PayrollController extends Controller
 
                     }
 
-                    if($staff_type == "ST01") //Temporary staff
+                    if($staff_type == "ST01" || $staff_type == "ST02") //Temporary staff
                     {
                         $insertion_arr[] = [
                             'payroll_id' => $payroll_id,
@@ -928,7 +933,19 @@ class PayrollController extends Controller
         $gross_20_percent = (0.2 * $monthly_gross);
         $total_relief = $gross_20_percent + 16666.67;
         $taxable_income = $monthly_gross - $total_relief;
-        dd($taxable_income);
+
+        if ($monthly_gross < 1)//if there is no gross return payee as zero
+        {
+            return 0;
+        }
+       
+        
+        if ($taxable_income < 1)//if there is no taxable income charge 1% of the total salary as the taxable total income
+        {
+            $payee = 0.01 * $monthly_gross;
+
+            return $payee;
+        }
         
        
         if ($taxable_income <= 25000)

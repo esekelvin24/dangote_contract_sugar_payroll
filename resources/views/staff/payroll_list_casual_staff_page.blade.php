@@ -103,7 +103,7 @@
                                                     <th class="exportable">Overtime Pay</th>
                                                     <th class="exportable">Payee</th>
                                                     <th class="exportable">Present</th>
-                                                    <th class="exportable">Daily Net</th>
+                                                    <th class="exportable">Daily Gross</th>
                                                     <th class="exportable">Advance</th>
                                                     <th class="exportable">Arrears</th>
                                                     <th class="exportable">Net</th>
@@ -127,7 +127,7 @@
                                                     <th>Overtime Pay</th>
                                                     <th>Payee</th>
                                                     <th>Present</th>
-                                                    <th>Daily Net</th>
+                                                    <th>Daily Gross</th>
                                                     <th>Advance</th>
                                                     <th>Arrears</th>
                                                     <th>Net</th>
@@ -287,12 +287,12 @@
                             {data: null,
                             render: function(data){
                                  
-                                var number = numeral(data.daily_net_salary);
+                                var number = numeral(data.daily_gross_salary);
                                 var amt = number.format('0,0.00');
 
                                 return {{-- "&#8358;" + --}} amt;
 
-                                return data.daily_net_salary;
+                                return data.daily_gross_salary;
                              //return data.name==null?"": data.name + " " + data.othername ==null?"":data.othername + " " + data.lastname ==null?"":data.lastname;
                               }
                             },
