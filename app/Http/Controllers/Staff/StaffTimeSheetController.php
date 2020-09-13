@@ -53,6 +53,7 @@ class StaffTimeSheetController extends Controller
             $dept_id = isset($request->department_id)?$request->department_id:"";
             $staff_type_id = isset($request->staff_type)?$request->staff_type:"";
             
+            $builder->selectRaw('*, time_sheet_view.created_at as created');
             if(!empty($request->start_date) && !empty($request->end_date))
             {
                  $builder->whereBetween('started_at', array($request->start_date . " 00:00", $request->end_date . " 23:59"));
@@ -70,7 +71,7 @@ class StaffTimeSheetController extends Controller
 
             $timesheet = $builder->get();
         
-     
+            //dd($timesheet);
 
        
 

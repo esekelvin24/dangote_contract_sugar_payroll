@@ -30,7 +30,9 @@
 	<!-- jQuery -->
 	<script src="{{asset('vendors/bower_components/jquery/dist/jquery.min.js')}}"></script>
 
-	
+	<!-- bootstrap datepicker -->
+  <link rel="stylesheet" href="{{asset('bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css')}}">
+
 	
 	
 
@@ -45,7 +47,7 @@
 	<!-- multi-select CSS -->
 	<link href="{{asset('vendors/bower_components/multiselect/css/multi-select.css')}}" rel="stylesheet" type="text/css"/>
 		
-
+      
 	<!-- bootstrap-select CSS -->
 	<link href="{{asset('vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.min.css')}}" rel="stylesheet" type="text/css"/>
 	<link href="{{asset('vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.min.css')}}" rel="stylesheet" type="text/css"/>
@@ -272,19 +274,24 @@
 	<!-- ChartJS JavaScript -->
 	<script src="{{asset('vendors/chart.js/Chart.min.js')}}"></script>
 	
-	<!-- Morris Charts JavaScript -->
+	{{-- <!-- Morris Charts JavaScript -->
     <script src="{{asset('vendors/bower_components/raphael/raphael.min.js')}}"></script>
     <script src="{{asset('vendors/bower_components/morris.js/morris.min.js')}}"></script>
     <script src="{{asset('vendors/bower_components/jquery-toast-plugin/dist/jquery.toast.min.js')}}"></script>
 	
 	<!-- Switchery JavaScript -->
 	<script src="{{asset('vendors/bower_components/switchery/dist/switchery.min.js')}}"></script>
-	
+	--}}
+
 	<!-- Init JavaScript -->
 	<script src="{{asset('dist/js/init.js')}}"></script>
 	
 	<script src="{{asset('dist/js/numeral.min.js')}}"></script>
 
+	<!-- bootstrap datepicker -->
+
+	<script src="{{asset('bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
+	<script src="{{asset('bower_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
 
 
 	

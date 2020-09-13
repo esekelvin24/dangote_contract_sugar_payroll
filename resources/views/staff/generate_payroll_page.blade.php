@@ -61,12 +61,12 @@
                                                                         </span>
                                                                     @enderror
                                                                 </div>
-                                                               </div>
+                                                            </div>
 
                                                             <div style="max-width:210px !important;" class="col-md-6">
                                                                     <div class="form-group @error('new_date') has-error @enderror">
                                                                         <label class="control-label mb-10">Month and Year</label>
-                                                                        <input type="text" id="new_date" name="new_date" class="form-control"  placeholder="Enter the month" required autofocus>
+                                                                        <input autocomplete="off" type="text" id="new_date" name="new_date" class="form-control"  placeholder="Enter the month" required autofocus>
                                                                         @error('new_date')
                                                                             <span class="help-block" role="alert">
                                                                                 <strong>{{ $message }}</strong>
@@ -92,7 +92,7 @@
                                                                         </span>
                                                                     @enderror
                                                                 </div>
-                                                            </div>
+                                                         </div>
                                                         
                                                            
                                                        

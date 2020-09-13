@@ -357,7 +357,7 @@ class PayrollController extends Controller
                 FROM staff_view 
                 LEFT JOIN payroll_staff_record 
                 ON payroll_staff_record.staff_id = staff_view.staff_id AND payroll_staff_record.payroll_id = '$payroll_id'  
-                WHERE staff_view.staff_id IN ($list) AND staff_view.status = '1' AND staff_view.staff_type_id = '$staff_type' AND staff_view.department_id = '$department_id' GROUP BY staff_view.staff_id, staff_view.first_name, staff_view.last_name, staff_view.designation_id, staff_view.other_name,staff_view.department_name, payroll_staff_record.payroll_id, payroll_staff_record.arrears, payroll_staff_record.advance") );
+                WHERE staff_view.staff_id IN ($list) AND staff_view.status = '1' AND staff_view.staff_type_id = '$staff_type' AND staff_view.department_id = '$department_id' GROUP BY staff_view.staff_id, staff_view.staff_type_id, staff_view.first_name, staff_view.staff_type_name, staff_view.last_name, staff_view.designation_id, staff_view.other_name,staff_view.department_name, payroll_staff_record.payroll_id, payroll_staff_record.arrears, payroll_staff_record.advance") );
                 
         }else
         {
@@ -366,7 +366,7 @@ class PayrollController extends Controller
                 FROM staff_view 
                 LEFT JOIN payroll_staff_record 
                 ON payroll_staff_record.staff_id = staff_view.staff_id AND payroll_staff_record.payroll_id = '$payroll_id'  
-                WHERE staff_view.staff_id IN ('not_needed') AND staff_view.status = '1' AND staff_view.staff_type_id = '$staff_type' AND staff_view.department_id = '$department_id' GROUP BY staff_view.staff_id, staff_view.first_name, staff_view.last_name, staff_view.designation_id, staff_view.other_name,staff_view.department_name, payroll_staff_record.payroll_id, payroll_staff_record.arrears, payroll_staff_record.advance") );
+                WHERE staff_view.staff_id IN ('not_needed') AND staff_view.status = '1' AND staff_view.staff_type_id = '$staff_type' AND staff_view.department_id = '$department_id' GROUP BY staff_view.staff_id, staff_view.staff_type_id, staff_view.staff_type_name, staff_view.first_name, staff_view.last_name, staff_view.designation_id, staff_view.other_name,staff_view.department_name, payroll_staff_record.payroll_id, payroll_staff_record.arrears, payroll_staff_record.advance") );
          
         }
         //dd($staff_list);

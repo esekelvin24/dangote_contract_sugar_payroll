@@ -173,7 +173,7 @@
                     <!-- /Row -->
                     <div class="row">
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                            <input class="form-control" id="new_date" name="new_date" value="" placeholder="Select a date" />
+                            <input autocomplete="off" class="form-control" id="new_date" name="new_date" value="" placeholder="Select a date" />
                         <br/>
                         </div>
                     </div>

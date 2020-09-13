@@ -3,15 +3,15 @@
 
  Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 100316
+ Source Server Version : 100413
  Source Host           : localhost:3306
  Source Schema         : dangote_sugar_payroll
 
  Target Server Type    : MySQL
- Target Server Version : 100316
+ Target Server Version : 100413
  File Encoding         : 65001
 
- Date: 04/02/2020 19:56:57
+ Date: 09/09/2020 13:53:57
 */
 
 SET NAMES utf8mb4;
@@ -348,9 +348,9 @@ CREATE TABLE `gendata`  (
 -- Records of gendata
 -- ----------------------------
 INSERT INTO `gendata` VALUES ('menu', 81);
-INSERT INTO `gendata` VALUES ('payroll', 7);
-INSERT INTO `gendata` VALUES ('payroll_cat_id', 348);
-INSERT INTO `gendata` VALUES ('timesheet', 30);
+INSERT INTO `gendata` VALUES ('payroll', 17);
+INSERT INTO `gendata` VALUES ('payroll_cat_id', 3605);
+INSERT INTO `gendata` VALUES ('timesheet', 91);
 INSERT INTO `gendata` VALUES ('department', 0);
 INSERT INTO `gendata` VALUES ('designation', 172);
 INSERT INTO `gendata` VALUES ('category', 0);
@@ -397,13 +397,13 @@ CREATE TABLE `job_category`  (
 -- ----------------------------
 -- Records of job_category
 -- ----------------------------
-INSERT INTO `job_category` VALUES ('cat01', 'General Manager', 'ese.kelvin@dangoteprojects.com', '2019-09-12 11:09:12');
-INSERT INTO `job_category` VALUES ('cat02', 'Department Head', 'ese.kelvin@dangoteprojects.com', '2019-09-12 11:09:12');
-INSERT INTO `job_category` VALUES ('cat03', 'Managers/Engineers', 'ese.kelvin@dangoteprojects.com', '2019-09-12 11:09:12');
-INSERT INTO `job_category` VALUES ('cat04', 'Senior Staff', 'ese.kelvin@dangoteprojects.com', '2019-09-12 11:09:12');
-INSERT INTO `job_category` VALUES ('cat05', 'Supervisor', 'ese.kelvin@dangoteprojects.com', '2019-09-12 11:09:12');
-INSERT INTO `job_category` VALUES ('cat06', 'Skill', 'ese.kelvin@dangoteprojects.com', '2019-09-12 11:09:12');
-INSERT INTO `job_category` VALUES ('cat07', 'Unskill', 'ese.kelvin@dangoteprojects.com', '2019-09-12 11:09:12');
+INSERT INTO `job_category` VALUES ('cat01', 'General Manager', 'ese.kelvin@dangoteprojects.com', '2019-09-12 19:09:12');
+INSERT INTO `job_category` VALUES ('cat02', 'Department Head', 'ese.kelvin@dangoteprojects.com', '2019-09-12 19:09:12');
+INSERT INTO `job_category` VALUES ('cat03', 'Managers/Engineers', 'ese.kelvin@dangoteprojects.com', '2019-09-12 19:09:12');
+INSERT INTO `job_category` VALUES ('cat04', 'Senior Staff', 'ese.kelvin@dangoteprojects.com', '2019-09-12 19:09:12');
+INSERT INTO `job_category` VALUES ('cat05', 'Supervisor', 'ese.kelvin@dangoteprojects.com', '2019-09-12 19:09:12');
+INSERT INTO `job_category` VALUES ('cat06', 'Skill', 'ese.kelvin@dangoteprojects.com', '2019-09-12 19:09:12');
+INSERT INTO `job_category` VALUES ('cat07', 'Unskill', 'ese.kelvin@dangoteprojects.com', '2019-09-12 19:09:12');
 
 -- ----------------------------
 -- Table structure for lga
@@ -1295,7 +1295,7 @@ INSERT INTO `menu` VALUES (8, 'Department', '/department-list', '14', 'false', '
 INSERT INTO `menu` VALUES (9, 'Position', '/designation-list', '14', 'false', '1', '3', '', '', '', '2019-09-18 11:12:26', NULL, 1);
 INSERT INTO `menu` VALUES (10, 'Job Category', '/category-list', '14', 'false', '1', '3', '', '', '', '2019-09-18 11:12:26', NULL, 1);
 INSERT INTO `menu` VALUES (11, 'Staff Setup', '/staff-management', '', 'true', '0', '1', '', '003', 'fa fa-users mr-20', '2019-09-18 11:12:26', NULL, 1);
-INSERT INTO `menu` VALUES (12, 'Monthly Grows Salary', '/designation-salary-list', '14', 'false', '1', '4', '', '', '', '2019-09-18 11:12:26', NULL, 1);
+INSERT INTO `menu` VALUES (12, 'Monthly Gross Salary', '/designation-salary-list', '14', 'false', '1', '4', '', '', '', '2019-09-18 11:12:26', NULL, 1);
 INSERT INTO `menu` VALUES (13, 'Staff List', '/staff-list', '11', 'false', '1', '1', '', '', '', '2019-09-18 11:12:26', NULL, 1);
 INSERT INTO `menu` VALUES (14, 'Department Setup', '/department-management', '', 'true', '0', '0', '', '003', 'fa fa-building mr-20', '2019-09-18 11:12:26', NULL, 1);
 INSERT INTO `menu` VALUES (15, 'Attendance Setup', '/attendance-setup', '', 'true', '0', '4', '', '004', 'fa fa-clock-o mr-20', '2019-09-18 11:12:26', NULL, 1);
@@ -1305,6 +1305,7 @@ INSERT INTO `menu` VALUES (18, 'Capture Time Sheet', '/capture-time-sheet', '15'
 INSERT INTO `menu` VALUES (20, 'Payroll', '/payroll', '', 'true', '0', '5', '', '005', 'fa fa-file mr-20', '2019-09-26 11:48:32', NULL, 1);
 INSERT INTO `menu` VALUES (21, 'Payroll Generation', '/payroll-generation/create', '20', 'false', '1', '1', '', '', '', '2019-09-26 11:48:32', NULL, 1);
 INSERT INTO `menu` VALUES (23, 'Departmental Monthly Payroll', '/departmental-payroll-list', '20', 'false', '1', '2', '', '', '', '2019-09-26 11:48:32', NULL, 1);
+INSERT INTO `menu` VALUES (24, 'Approve Monthly Payroll', '/approve-monthly-payroll', '20', 'false', '1', '3', '', '', '', '2019-09-26 11:48:32', NULL, 1);
 
 -- ----------------------------
 -- Table structure for menu_category_header
@@ -1343,7 +1344,6 @@ CREATE TABLE `menugroup`  (
 INSERT INTO `menugroup` VALUES ('0', '19');
 INSERT INTO `menugroup` VALUES ('0', '21');
 INSERT INTO `menugroup` VALUES ('0', '22');
-INSERT INTO `menugroup` VALUES ('0', '24');
 INSERT INTO `menugroup` VALUES ('1', '1');
 INSERT INTO `menugroup` VALUES ('1', '10');
 INSERT INTO `menugroup` VALUES ('1', '11');
@@ -1356,6 +1356,7 @@ INSERT INTO `menugroup` VALUES ('1', '17');
 INSERT INTO `menugroup` VALUES ('1', '18');
 INSERT INTO `menugroup` VALUES ('1', '20');
 INSERT INTO `menugroup` VALUES ('1', '23');
+INSERT INTO `menugroup` VALUES ('1', '24');
 INSERT INTO `menugroup` VALUES ('1', '3');
 INSERT INTO `menugroup` VALUES ('1', '4');
 INSERT INTO `menugroup` VALUES ('1', '5');
@@ -1371,6 +1372,8 @@ INSERT INTO `menugroup` VALUES ('2', '14');
 INSERT INTO `menugroup` VALUES ('2', '15');
 INSERT INTO `menugroup` VALUES ('2', '16');
 INSERT INTO `menugroup` VALUES ('2', '17');
+INSERT INTO `menugroup` VALUES ('2', '20');
+INSERT INTO `menugroup` VALUES ('2', '24');
 INSERT INTO `menugroup` VALUES ('2', '3');
 INSERT INTO `menugroup` VALUES ('2', '7');
 INSERT INTO `menugroup` VALUES ('2', '8');
@@ -1433,11 +1436,12 @@ INSERT INTO `parameter` VALUES ('transfer_protocol', 'http', 'Transfer protocol 
 INSERT INTO `parameter` VALUES ('break_duration', '1', 'Daily break duration', '2019-09-24 14:52:32', NULL);
 INSERT INTO `parameter` VALUES ('resumption_time', '7', 'Daily Resumption time', '2019-09-24 14:52:32', NULL);
 INSERT INTO `parameter` VALUES ('max_daily_over_time', '2', 'Maximum Overtime from monday to saturday', '2019-09-24 14:52:32', NULL);
-INSERT INTO `parameter` VALUES ('max_sunday_over_time', '4', 'Maximum Overtime for sundays in hours', '2019-09-24 14:52:32', NULL);
+INSERT INTO `parameter` VALUES ('max_sunday_over_time', '40', 'Maximum Overtime for sundays in hours', '2019-09-24 14:52:32', NULL);
 INSERT INTO `parameter` VALUES ('work_days', '6', 'the default No. of work days in a week', '2019-09-24 14:52:32', NULL);
 INSERT INTO `parameter` VALUES ('work_daily_hrs', '8', 'Hours worked in a day', '2019-09-24 14:52:32', NULL);
 INSERT INTO `parameter` VALUES ('max_ot', '10', 'Maximum Overtime a Payroll Officer can input', '2019-10-25 16:14:28', NULL);
 INSERT INTO `parameter` VALUES ('monthly_work_days', '26', 'Monthly default work days', '2019-10-30 05:15:42', NULL);
+INSERT INTO `parameter` VALUES ('pay_day', '25', 'Monthly pay day of the month is 25th of each month', '2020-03-16 09:11:44', NULL);
 
 -- ----------------------------
 -- Table structure for password_resets
@@ -1464,6 +1468,7 @@ CREATE TABLE `payroll_creation`  (
   `rollback_by` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `department_id` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `staff_type_id` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT '0',
+  `pay_day` int(10) NULL DEFAULT NULL,
   PRIMARY KEY (`month_of`, `status`, `department_id`, `staff_type_id`) USING BTREE,
   INDEX `payroll_id`(`payroll_id`) USING BTREE,
   INDEX `department_id_fk2`(`department_id`) USING BTREE,
@@ -1471,11 +1476,6 @@ CREATE TABLE `payroll_creation`  (
   CONSTRAINT `department_id_fk2` FOREIGN KEY (`department_id`) REFERENCES `department` (`department_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `staff_type_id_fk2` FOREIGN KEY (`staff_type_id`) REFERENCES `staff_type` (`staff_type_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of payroll_creation
--- ----------------------------
-INSERT INTO `payroll_creation` VALUES ('00043118900361238477', 'b@yahoo.com', '2020-01-28 12:38:47', '2020-01-01', 0, NULL, NULL, 'dep09', 'ST01');
 
 -- ----------------------------
 -- Table structure for payroll_staff_record
@@ -1486,25 +1486,27 @@ CREATE TABLE `payroll_staff_record`  (
   `staff_id` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `payment_type` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `payment_description` varchar(200) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `amount` decimal(10, 2) NOT NULL,
+  `amount` decimal(15, 2) NOT NULL,
   `created_at` datetime(0) NULL DEFAULT NULL,
   `created_by` varchar(200) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  `default_working_days` int(10) NULL DEFAULT NULL,
+  `default_working_days` int(15) NULL DEFAULT NULL,
   `absence_from_work` int(11) NULL DEFAULT NULL,
   `days_worked` int(11) NULL DEFAULT NULL,
-  `payee` decimal(10, 2) NULL DEFAULT NULL COMMENT 'payee for the number of days worked',
-  `gross_salary` decimal(10, 2) NULL DEFAULT NULL COMMENT 'Monthly gross salary',
+  `payee` decimal(15, 2) NULL DEFAULT NULL COMMENT 'payee for the number of days worked',
+  `gross_salary` decimal(15, 2) NULL DEFAULT NULL COMMENT 'Monthly gross salary',
   `overtime_hrs` int(11) NULL DEFAULT NULL,
-  `overtime_pay` decimal(10, 2) NULL DEFAULT NULL,
+  `overtime_pay` decimal(15, 2) NULL DEFAULT NULL,
   `month_of` date NOT NULL,
   `cat_group_id` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `status` tinyint(4) NULL DEFAULT NULL,
   `updated_by` varchar(200) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `updated_at` datetime(0) NULL DEFAULT NULL,
-  `advance` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  `arrears` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `advance` decimal(15, 2) NULL DEFAULT NULL,
+  `arrears` decimal(15, 2) NULL DEFAULT NULL,
   `entry_order` int(11) NULL DEFAULT NULL,
-  `absent_deduction` decimal(10, 2) NULL DEFAULT NULL,
+  `absent_deduction` decimal(15, 2) NULL DEFAULT NULL,
+  `daily_gross_salary` decimal(10, 2) NULL DEFAULT NULL,
+  `present_days_amt` decimal(15, 2) NULL DEFAULT NULL,
   PRIMARY KEY (`staff_id`, `month_of`, `payment_description`) USING BTREE,
   INDEX `staff_id`(`staff_id`) USING BTREE,
   INDEX `payroll_id_fk`(`payroll_id`) USING BTREE,
@@ -1745,7 +1747,7 @@ CREATE TABLE `staff`  (
   CONSTRAINT `bin_code` FOREIGN KEY (`bin_code`) REFERENCES `bank_bincodes` (`bin_code`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `category_id_NW` FOREIGN KEY (`category_id`) REFERENCES `job_category` (`category_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `designation_id` FOREIGN KEY (`designation_id`) REFERENCES `designation` (`designation_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `lgaid` FOREIGN KEY (`lgaid`) REFERENCES `lga` (`Lgaid`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `lgaid` FOREIGN KEY (`lgaid`) REFERENCES `lga` (`lgaid`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `section_id` FOREIGN KEY (`section_id`) REFERENCES `section` (`section_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `staff_type_id` FOREIGN KEY (`staff_type_id`) REFERENCES `staff_type` (`staff_type_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
@@ -2124,6 +2126,7 @@ CREATE TABLE `staff_other_allowances`  (
 -- ----------------------------
 -- Records of staff_other_allowances
 -- ----------------------------
+INSERT INTO `staff_other_allowances` VALUES ('B9001', 'sd01', NULL, NULL, 21200.00);
 INSERT INTO `staff_other_allowances` VALUES ('C3001', 'sd01', NULL, NULL, 31000.00);
 
 -- ----------------------------
@@ -2547,14 +2550,9 @@ CREATE TABLE `time_sheet`  (
   PRIMARY KEY (`department_id`, `started_at`, `staff_type_id`) USING BTREE,
   INDEX `sheet_id`(`sheet_id`) USING BTREE,
   INDEX `staff_type_id_fk`(`staff_type_id`) USING BTREE,
-  CONSTRAINT `department_id` FOREIGN KEY (`department_id`) REFERENCES `department` (`department_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `staff_type_id_fk` FOREIGN KEY (`staff_type_id`) REFERENCES `staff_type` (`staff_type_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `time_sheet_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `department` (`department_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `time_sheet_ibfk_2` FOREIGN KEY (`staff_type_id`) REFERENCES `staff_type` (`staff_type_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of time_sheet
--- ----------------------------
-INSERT INTO `time_sheet` VALUES ('00431189003612381630', 'dep09', '#', NULL, 'b@yahoo.com', '2020-01-28 12:38:16', '2020-01-01', '2020-01-05', 1, NULL, NULL, 'ST01');
 
 -- ----------------------------
 -- Table structure for time_sheet_capture
@@ -2570,6 +2568,7 @@ CREATE TABLE `time_sheet_capture`  (
   `approved_at` datetime(0) NULL DEFAULT NULL,
   `ot` int(11) NULL DEFAULT NULL,
   `numb_days` int(11) NULL DEFAULT NULL,
+  `weekends` int(11) NULL DEFAULT NULL,
   `absent` int(11) NULL DEFAULT NULL,
   `updated_at` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`sheet_id`, `staff_id`) USING BTREE,
@@ -2577,10 +2576,25 @@ CREATE TABLE `time_sheet_capture`  (
 ) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of time_sheet_capture
+-- Table structure for time_sheet_capture_bc
 -- ----------------------------
-INSERT INTO `time_sheet_capture` VALUES ('00431189003612381630', 'B9001', 1, 'b@yahoo.com', '2020-01-28 12:38:30', NULL, NULL, 0, 6, 0, '2020-01-28 12:38:30');
-INSERT INTO `time_sheet_capture` VALUES ('00431189003612381630', 'B9002', 1, 'b@yahoo.com', '2020-01-28 12:38:31', NULL, NULL, 0, 6, 0, '2020-01-28 12:38:31');
+DROP TABLE IF EXISTS `time_sheet_capture_bc`;
+CREATE TABLE `time_sheet_capture_bc`  (
+  `sheet_id` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `staff_id` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `status` int(11) NULL DEFAULT NULL,
+  `created_by` varchar(200) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `created_at` datetime(0) NULL DEFAULT NULL,
+  `approved_by` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `approved_at` datetime(0) NULL DEFAULT NULL,
+  `ot` int(11) NULL DEFAULT NULL,
+  `numb_days` int(11) NULL DEFAULT NULL,
+  `weekends` int(11) NULL DEFAULT NULL,
+  `absent` int(11) NULL DEFAULT NULL,
+  `updated_at` datetime(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`sheet_id`, `staff_id`) USING BTREE,
+  INDEX `fk_staff_id`(`staff_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for users
@@ -2619,17 +2633,18 @@ CREATE TABLE `users`  (
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   `department_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `god_eye` int(1) UNSIGNED ZEROFILL NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `users_email_unique`(`email`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (23, 'Ese', 'Uvbiekpahor', 'Kelvin', 'male', 'bala@yahoo.com', '2019-09-17', NULL, '$2y$10$a4KmzC/6vEVtpRD0A.O4wuAlvD4aN6zdVOXUNA8kpzoqeYoII9Auu', '08097191027', '0', NULL, NULL, NULL, NULL, '1', '1', '1', '1', '1', '1', '1', '1', NULL, NULL, NULL, NULL, 'bala@yahoo.com', 'lMregGyG74OcMgcvJWjoHA2uKddAJERLvz7bKzhWZFDRuxY43UIEIO0hkQi3', '2019-09-17 15:51:27', '2019-12-07 16:31:45', 'dep06');
-INSERT INTO `users` VALUES (25, 'Adamu', 'Moah', 'Junaidu', 'male', 'a@yahoo.com', '1971-05-04', NULL, '$2y$10$zPvtmV7hG9SMGCbbN75pte2AwiID0CxUj9MpSYdGPWLZxYJBlCWVK', '08097191027', '0', NULL, NULL, NULL, NULL, '1', '1', '1', '1', '1', '1', '1', '1', NULL, NULL, NULL, NULL, 'a@yahoo.com', NULL, '2019-11-05 16:01:40', '2019-12-07 16:32:08', 'dep09');
-INSERT INTO `users` VALUES (26, 'Victor', 'Mabuba', NULL, 'female', 'b@yahoo.com', '1995-11-15', NULL, '$2y$10$nwzzZujg9gyVeYwpjMv6aOXk5Gsfrjb/xBhIqhr6RE.IK.hTvmHeO', '08097191027', '0', NULL, NULL, NULL, NULL, '1', '1', '1', '1', '1', '1', '1', '1', NULL, NULL, NULL, NULL, 'bala@yahoo.com', NULL, '2019-11-05 16:02:56', '2019-12-07 16:32:25', 'dep06');
-INSERT INTO `users` VALUES (27, 'Support', 'Staff', NULL, NULL, 'c@yahoo.com', '1995-11-23', NULL, '$2y$10$Enw/ICAXCyBsbBxDJiB4v.r8d0erbU4t2rJz5Xp/mwn4EKsJGlH06', '08097191027', '0', NULL, NULL, NULL, NULL, '1', '1', '1', '1', '1', '1', '1', '1', NULL, NULL, NULL, NULL, 'bala@yahoo.com', NULL, '2019-11-05 16:26:55', '2019-12-07 16:33:18', 'dep06');
+INSERT INTO `users` VALUES (23, 'Ese', 'Uvbiekpahor', '', 'male', 'ese.kelvin@dangoteprojects.com', '1980-11-01', NULL, '$2y$10$nwzzZujg9gyVeYwpjMv6aOXk5Gsfrjb/xBhIqhr6RE.IK.hTvmHeO', '08097191027', '0', NULL, NULL, NULL, NULL, '1', '1', '1', '1', '1', '1', '1', '1', NULL, NULL, NULL, NULL, 'ese.kelvin@dangoteprojects.com', 'qW5gsgAAkzUphVbq4j83wtRyC0y6dB9NecgZppvRUWfege5sRqKUMzWf1nm4', '2019-09-17 23:51:27', '2019-12-08 01:31:45', 'dep06', 1);
+INSERT INTO `users` VALUES (25, 'Demo', 'Supervisor', '', 'male', 'demo_supervisor@yahoo.com', '1980-11-01', NULL, '$2y$10$zPvtmV7hG9SMGCbbN75pte2AwiID0CxUj9MpSYdGPWLZxYJBlCWVK', '080', '0', NULL, NULL, NULL, NULL, '1', '1', '1', '1', '1', '1', '1', '1', NULL, NULL, NULL, NULL, 'ese.kelvin@dangoteprojects.com', NULL, '2019-11-06 01:01:40', '2019-12-08 01:32:08', 'dep09', 0);
+INSERT INTO `users` VALUES (26, 'Demo', ' Officer', NULL, 'male', 'demo_payroll_officer@yahoo.com', '1980-11-01', NULL, '$2y$10$nwzzZujg9gyVeYwpjMv6aOXk5Gsfrjb/xBhIqhr6RE.IK.hTvmHeO', '080', '0', NULL, NULL, NULL, NULL, '1', '1', '1', '1', '1', '1', '1', '1', NULL, NULL, NULL, NULL, 'ese.kelvin@dangoteprojects.com', NULL, '2019-11-06 01:02:56', '2019-12-08 01:32:25', 'dep06', 0);
+INSERT INTO `users` VALUES (27, 'Demo', 'Admin', NULL, 'male', 'demo_admin@yahoo.com', '1980-11-01', NULL, '$2y$10$nwzzZujg9gyVeYwpjMv6aOXk5Gsfrjb/xBhIqhr6RE.IK.hTvmHeO', '080', '0', NULL, NULL, NULL, NULL, '1', '1', '1', '1', '1', '1', '1', '1', NULL, NULL, NULL, NULL, 'ese.kelvin@dangoteprojects.com', NULL, '2020-07-08 11:17:30', '2020-07-08 11:17:30', 'dep06', 0);
 
 -- ----------------------------
 -- View structure for designation_salary_view
@@ -2653,7 +2668,7 @@ INNER JOIN salary_description ON designation_salary_package.salary_desc_code = s
 LEFT JOIN department ON designation.department_id = department.department_id
 LEFT JOIN staff_type ON designation.staff_type_id = staff_type.staff_type_id
 GROUP BY
-designation_salary_package.designation_id ;
+designation_salary_package.designation_id ; ;
 
 -- ----------------------------
 -- View structure for designation_view
@@ -2671,7 +2686,7 @@ job_category.category_id
 FROM
 designation
 INNER JOIN department ON designation.department_id = department.department_id
-INNER JOIN job_category ON designation.category_id = job_category.category_id ;
+INNER JOIN job_category ON designation.category_id = job_category.category_id ; ;
 
 -- ----------------------------
 -- View structure for payroll_departmental_view
@@ -2689,11 +2704,12 @@ payroll_creation.rollback_at,
 payroll_creation.rollback_by,
 Sum(payroll_staff_record.amount) AS monthly_net,
 staff_type.staff_type_name,
-payroll_creation.staff_type_id
+payroll_creation.staff_type_id,
+payroll_creation.pay_day
 FROM
 department
 INNER JOIN payroll_creation ON payroll_creation.department_id = department.department_id
-LEFT JOIN payroll_staff_record ON payroll_staff_record.payroll_id = payroll_creation.payroll_id
+LEFT  JOIN payroll_staff_record ON payroll_staff_record.payroll_id = payroll_creation.payroll_id
 INNER JOIN staff_type ON payroll_creation.staff_type_id = staff_type.staff_type_id
 GROUP BY
 payroll_creation.payroll_id ;
@@ -2709,7 +2725,7 @@ staff.first_name,
 staff.last_name,
 staff.other_name,
 payroll_creation.month_of,
-Sum(payroll_staff_record.amount) AS monthly_net,
+(payroll_staff_record.present_days_amt + payroll_staff_record.overtime_pay + payroll_staff_record.arrears + payroll_staff_record.advance + payroll_staff_record.payee) AS monthly_net,
 department.department_name,
 payroll_creation.created_at,
 payroll_creation.created_by,
@@ -2732,7 +2748,10 @@ payroll_staff_record.gross_salary,
 payroll_staff_record.overtime_hrs,
 payroll_staff_record.advance,
 payroll_staff_record.arrears,
-payroll_staff_record.overtime_pay
+payroll_staff_record.overtime_pay,
+payroll_creation.pay_day,
+payroll_staff_record.daily_gross_salary,
+payroll_creation.staff_type_id
 FROM
 payroll_creation
 LEFT JOIN payroll_staff_record ON payroll_staff_record.payroll_id = payroll_creation.payroll_id
@@ -2761,7 +2780,7 @@ staff.designation_id
 FROM
 staff_other_allowances
 INNER JOIN staff ON staff_other_allowances.staff_id = staff.staff_id
-INNER JOIN salary_description ON staff_other_allowances.salary_desc_code = salary_description.salary_desc_code ;
+INNER JOIN salary_description ON staff_other_allowances.salary_desc_code = salary_description.salary_desc_code ; ;
 
 -- ----------------------------
 -- View structure for staff_time_sheet_view
@@ -2783,7 +2802,9 @@ time_sheet.started_at,
 department.department_id,
 department.department_name,
 staff.staff_type_id,
-time_sheet.section_id
+time_sheet.section_id,
+time_sheet.expired_at,
+time_sheet_capture.weekends
 FROM
 time_sheet_capture
 INNER JOIN staff ON time_sheet_capture.staff_id = staff.staff_id
@@ -2836,7 +2857,7 @@ LEFT JOIN bank_bincodes ON staff.bin_code = bank_bincodes.bin_code
 INNER JOIN department ON designation.department_id = department.department_id
 INNER JOIN staff_type ON staff.staff_type_id = staff_type.staff_type_id
 LEFT JOIN section ON staff.section_id = section.section_id
-LEFT JOIN job_category ON designation.category_id = job_category.category_id ;
+LEFT JOIN job_category ON designation.category_id = job_category.category_id ; ;
 
 -- ----------------------------
 -- View structure for time_sheet_view
@@ -2862,6 +2883,6 @@ FROM
 time_sheet
 INNER JOIN department ON time_sheet.department_id = department.department_id
 LEFT JOIN section ON section.department_id = department.department_id AND time_sheet.section_id = section.section_id
-INNER JOIN staff_type ON time_sheet.staff_type_id = staff_type.staff_type_id ;
+INNER JOIN staff_type ON time_sheet.staff_type_id = staff_type.staff_type_id ; ;
 
 SET FOREIGN_KEY_CHECKS = 1;

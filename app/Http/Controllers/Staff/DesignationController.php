@@ -15,22 +15,23 @@ class DesignationController extends Controller
     //
     public function index(Request $request)
     {
-
+          
         if(request()->ajax())
         {
             if(!empty($request->start_date) && !empty($request->end_date))
             {
+                
                  $data = DB::table('designation_view')
                 ->whereBetween('created_at', array($request->start_date . " 00:00", $request->end_date . " 23:59"))
                 ->get();
             }
             else
             {
+
+               
                  $data = DB::table('designation_view')->where("department_id","LIKE","%".$request->department_id."%")
                  ->where("category_id","LIKE","%".$request->category_id."%")
                  ->get();
-                
-   
             }
 
             return datatables()->of($data)->make(true);

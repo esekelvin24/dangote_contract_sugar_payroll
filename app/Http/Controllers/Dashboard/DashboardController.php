@@ -57,29 +57,30 @@ class DashboardController extends Controller
         ->where('staff_type_id','ST01')
         ->where('started_at','>=', $start)
         ->where('expired_at', '<=', $end)
-        ->orderBy('department_name','asc')->groupBy("department_id")->get();
+        ->orderBy('department_name','asc')->groupBy("department_id","department_name")->get();
 
         $casual_ot = DB::table('staff_time_sheet_view')->selectRaw("department_id, department_name,SUM(ot) as overtime")
         ->where('staff_type_id','ST02')
         ->where('started_at','>=', $start)
         ->where('expired_at', '<=', $end)
-        ->orderBy('department_name','asc')->groupBy("department_id")->get();
+        ->orderBy('department_name','asc')->groupBy("department_id","department_name")->get();
 
         
-        $temporary_monthly_net = DB::table('payroll_departmental_view')
+        $temporary_monthly_net = DB::table('payroll_departmental_view')->selectRaw("monthly_net, payroll_departmental_view.department_name, department_id")
         ->where('staff_type_id','ST01')
         ->where("month_of", '>=',  $payroll_month)
-        ->orderBy('department_name','asc')->groupBy("department_id")->get();
+        ->orderBy('department_name','asc')->groupBy("monthly_net","payroll_departmental_view.department_name","department_id")->get();
 
-        $casual_monthly_net = DB::table('payroll_departmental_view')
+      
+        $casual_monthly_net = DB::table('payroll_departmental_view')->selectRaw("monthly_net, payroll_departmental_view.department_name, department_id")
         ->where('staff_type_id','ST02')
         ->where("month_of", '>=',  $payroll_month)
-        ->orderBy('department_name','asc')->groupBy("department_id")->get();
+        ->orderBy('department_name','asc')->groupBy("monthly_net","payroll_departmental_view.department_name","department_id")->get();
+        
 
 
 
-
-         return view('dashboard/dashboard_page', Utilities::get_menu_array(array("graph_date"=>$graph_date,"casual_monthly_net"=>$casual_monthly_net,"temporary_monthly_net" => $temporary_monthly_net,"casual_ot"=>$casual_ot,"temporary_ot"=>$temporary_ot,"temporary_staff"=>$temporary_staff,"casual_staff"=>$casual_staff,"department"=>$department,"designation"=>$designation,"job_category"=>$job_category)));
+         return view('dashboard.dashboard_page', Utilities::get_menu_array(array("graph_date"=>$graph_date,"casual_monthly_net"=>$casual_monthly_net,"temporary_monthly_net" => $temporary_monthly_net,"casual_ot"=>$casual_ot,"temporary_ot"=>$temporary_ot,"temporary_staff"=>$temporary_staff,"casual_staff"=>$casual_staff,"department"=>$department,"designation"=>$designation,"job_category"=>$job_category)));
     }
 
 

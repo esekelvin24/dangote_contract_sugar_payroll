@@ -140,17 +140,19 @@
                                                 </tr>
                                             </tfoot>
                                             <tbody>
+                                            @foreach($data as $val)
                                                 <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                               
+                                                    <td><div class="checkbox"><input onClick="ff()" value="{{$val->designation_id}}" type="checkbox"><label for="checkbox1"></label></div></td>
+                                                    <td>{{$val->designation_name}}</td>
+                                                    <td>{{$val->department_name}}</td>
+                                                    <td>{{$val->staff_type_name}}</td>
+                                                    <td>{{$val->monthly_amount}}</td>
+                                                    <td>{{$val->created_by}}</td>
+                                                    <td>{{$val->created}}</td>
+                                                    <td><a id="{{$val->designation_id}}" href="{{url('/designation-salary-list/update/'.$val->designation_id)}}"  class="text-primary"><icon class="fa fa-pencil"></icon> Edit</a> | 
+                                                    <a id="{{$val->designation_id}}" onclick="take_action_blk('{{$val->designation_id}}')" href="javascript:void(0)" class="text-danger"><icon class="fa fa-trash"></icon> Delete</a></td>
+                                              </tr>
+                                            @endforeach 
                                           
                                             </tbody>
                                         </table>
@@ -208,7 +210,11 @@
 
        var table ="";
 
-       function  do_filter()
+       table = $('#datable_1').DataTable({
+                        processing: true,
+                         });
+
+    /*   function  do_filter()
         {
            $('#datable_1').DataTable().ajax.reload();
         }
@@ -258,7 +264,7 @@
                         });
         }// end of load functions
 
-       
+*/
             //individual checking of checkbox
                 function ff()
                 {

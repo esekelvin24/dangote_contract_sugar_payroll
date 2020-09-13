@@ -16,41 +16,36 @@ class DesignationSalaryController extends Controller
     public function index(Request $request)
     {
 
-        if(request()->ajax())
-        {
+        
             if(!empty($request->start_date) && !empty($request->end_date))
             {
                 if (!empty($request->staff_type))
                  {
-                    $data = DB::table('designation_salary_view')
-                    ->whereBetween('created_at', array($request->start_date . " 00:00", $request->end_date . " 23:59"))
+                    $data = DesignationSalaryModel::selectRaw('*, created_at as created')->whereBetween('created_at', array($request->start_date . " 00:00", $request->end_date . " 23:59"))
                     ->where("staff_type_id","=",$request->staff_type)
                     ->get();
                  }else
                  {
-                    $data = DB::table('designation_salary_view')
-                    ->whereBetween('created_at', array($request->start_date . " 00:00", $request->end_date . " 23:59"))
+                    $data = DesignationSalaryModel::selectRaw('*, created_at as created')->whereBetween('created_at', array($request->start_date . " 00:00", $request->end_date . " 23:59"))
                     ->get(); 
                  }
             }
             else
             {
                 
-                    $data = DesignationSalaryModel::where("staff_type_id","LIKE","%".$request->staff_type."%")
+               
+                     $data = DesignationSalaryModel::selectRaw('*, created_at as created')->where("staff_type_id","LIKE","%".$request->staff_type."%")
                     ->where("department_id","LIKE","%".$request->department_id."%")
-                    ->get();
-                 
-                 
+                    ->get();  
      
             }
+           
+            
 
-            return datatables()->of($data)->make(true);
-        }
         $staff_type = DB::table('staff_type')->get();
-        
         $dept_arr = DepartmentModel::all();  
 
-        return view ('staff.designation_salary_list_page', Utilities::get_menu_array(array("dept_array_list"=>$dept_arr,"staff_type" => $staff_type )));
+        return view ('staff.designation_salary_list_page', Utilities::get_menu_array(array("data" => $data,"dept_array_list"=>$dept_arr,"staff_type" => $staff_type )));
     }
 
 

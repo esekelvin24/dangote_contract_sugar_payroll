@@ -3,6 +3,7 @@
 @section('content')
 
 
+
 <div class="container-fluid">
 
     <div class="row heading-bg">
@@ -170,11 +171,14 @@
                                             </tfoot>
                                             <tbody>
 
+                                         
+
                                             @foreach($timesheet as $val)
                                                 <tr>
                                                     
                                                     <td><div class="checkbox"><input onClick="ff()" value="{{$val->sheet_id}}" type="checkbox"><label for="checkbox1"></label></div></td>
                                                     <td>{{$val->department_name}}</td>
+                                                    
                                                     <td>{{$val->section_name}}</td>
                                                     <td>{{$val->staff_type_name}}</td>
                                                     <td>{{$val->started_at}}</td>
@@ -186,8 +190,10 @@
                                                     @endif
 
                                                     <td>{{((strtotime($val->expired_at) - strtotime($val->started_at)) / (60 * 60 * 24))+ 1}}</td>
-                                                    <td>{{$val->created_at}}</td>
+                                                    <td>{{$val->created}}</td>
                                                     <td>
+                                                    
+                                                    
                                                        <a id="{{$val->sheet_id}}" href="{{url('/time-sheet-staff-list/'.$val->sheet_id )}}" class="text-primary"><icon class="fa fa-eye"></icon> View </a>
 
                                                        

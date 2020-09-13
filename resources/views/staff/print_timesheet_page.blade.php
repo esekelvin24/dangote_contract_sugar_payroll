@@ -18,20 +18,14 @@
                 </ol>
                 </div>
                 <!-- /Breadcrumb -->
+                
         </div>
-
 
 
         <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-default card-view">
-                        <div class="panel-heading">
-                            <div class="pull-left">
-                                <!--<h6 class="panel-title txt-dark">Generation Form</h6>  -->
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <hr class="light-grey-hr">   
+                         
 
                         <div class="panel-wrapper collapse in">
                             <div class="panel-body">
@@ -48,7 +42,7 @@
                                                             <div class="col-md-2">
                                                                     <div class="form-group @error('new_date') has-error @enderror">
                                                                             <span class="txt-danger" style="font-size:19px;">*</span>     <label class="control-label mb-10">Start Date</label>
-                                                                        <input type="text" id="start_range" name="start_range" class="form-control"  placeholder="Select the start date" required autofocus>
+                                                                        <input autocomplete="off" type="text" id="start_range" name="start_range" class="form-control"  placeholder="Select the start date" required >
                                                                         @error('new_date')
                                                                             <span class="help-block" role="alert">
                                                                                 <strong>{{ $message }}</strong>
@@ -179,11 +173,21 @@
     var SITEURL = '{{URL::to('')}}';
 $( document ).ready(function() {
 
- var myCalendar;
+ /*var myCalendar;
 	    myCalendar = new dhtmlXCalendarObject(["start_range", "end_range"]);
        // myCalendar.showWeekNumbers();
         myCalendar.setWeekStartDay(7);
         myCalendar.hideWeekNumbers
+*/
+
+  $('#start_range').datepicker({
+      format: 'yyyy-mm-dd',
+          // endDate: '+0d',
+           
+       });
+
+
+       
 
             });
 
