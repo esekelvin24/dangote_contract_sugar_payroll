@@ -226,6 +226,8 @@ class PayrollController extends Controller
       $temp_date = strtotime($end. " 23:59");
       $end = date('Y-m-d H:i:s', $temp_date);
 
+      
+
       $default_working_days = Parameter::where('parameter_name', 'monthly_work_days')->first()->parameter_value;
       
       $working_days_in_selected_month = $this->getWorkdays($start, $end, FALSE,  NULL) ; //plus means the current day was also counted

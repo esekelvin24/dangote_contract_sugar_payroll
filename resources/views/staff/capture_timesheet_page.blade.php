@@ -4,6 +4,10 @@
 @php
     $code = isset($code)?$code:"none";
     $message = isset($message)?$message:"none";
+
+    use Illuminate\Support\Facades\DB;
+    $pay_day =  DB::table('parameter')->where('parameter_name','pay_day')->first()->parameter_value;
+
 @endphp
 
 <meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -183,10 +187,30 @@ $( document ).ready(function() {
         myCalendar.setWeekStartDay(7);
         myCalendar.hideWeekNumbers*/
 
+
     $('#start_range').datepicker({
       format: 'yyyy-mm-dd',
          //  endDate: '+0d',
        });
+    $("#start_range").on("change",function(){
+        var selected = $(this).val();
+        var arr = selected.split('-');
+        if(arr[2] == '{{$pay_day}}')
+        {
+                swal({ 
+                            title: "Invalid Date Selection",   
+                            icon: "error", 
+                            text: "The selected date is the last day of the month, Next month timesheet starts from "+arr[0]+"-"+arr[1]+"-"+(parseInt(arr[2]) + 1),
+                            confirmButtonColor: "#469408",   
+                        }).then((value) => {
+                           $("#start_range").val("");
+
+                        });
+        }
+
+    });
+
+
 
 });
 

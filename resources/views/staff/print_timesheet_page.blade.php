@@ -2,6 +2,12 @@
 
 @section('content')
 
+@php
+    use Illuminate\Support\Facades\DB;
+    $pay_day =  DB::table('parameter')->where('parameter_name','pay_day')->first()->parameter_value;
+
+@endphp
+
 
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <div class="container-fluid">
@@ -172,24 +178,39 @@
 <script>
     var SITEURL = '{{URL::to('')}}';
 $( document ).ready(function() {
-
- /*var myCalendar;
+/*
+ var myCalendar;
 	    myCalendar = new dhtmlXCalendarObject(["start_range", "end_range"]);
        // myCalendar.showWeekNumbers();
         myCalendar.setWeekStartDay(7);
-        myCalendar.hideWeekNumbers
-*/
+        myCalendar.hideWeekNumbers*/
 
-  $('#start_range').datepicker({
+
+    $('#start_range').datepicker({
       format: 'yyyy-mm-dd',
-          // endDate: '+0d',
-           
+         //  endDate: '+0d',
        });
+    $("#start_range").on("change",function(){
+        var selected = $(this).val();
+        var arr = selected.split('-');
+        if(arr[2] == '{{$pay_day}}')
+        {
+                swal({ 
+                            title: "Invalid Date Selection",   
+                            icon: "error", 
+                            text: "The selected date is the last day of the month, Next month timesheet starts from "+arr[0]+"-"+arr[1]+"-"+(parseInt(arr[2]) + 1),
+                            confirmButtonColor: "#469408",   
+                        }).then((value) => {
+                           $("#start_range").val("");
+
+                        });
+        }
+
+    });
 
 
-       
 
-            });
+});
 
 function get_section(value)
 {
