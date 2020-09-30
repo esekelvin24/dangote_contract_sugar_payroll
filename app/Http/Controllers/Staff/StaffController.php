@@ -67,7 +67,7 @@ class StaffController extends Controller
 
             return datatables()->of($data)->make(true);
         }
-
+        
         $dept_arr = DepartmentModel::all();
         $staff_type = DB::table('staff_type')->get();
         return view ('staff.approve_staff_list_page', Utilities::get_menu_array(array("staff_type" => $staff_type, "dept_array_list" => $dept_arr )));
@@ -233,6 +233,8 @@ class StaffController extends Controller
         $id = $staff_id;
         $id = rtrim($id,",");
         $result = DB::table("staff")->whereIn("staff_id",explode(",",$id))->update(['status' => "1", "updated_by" => Auth::user()->email]);
+
+        return redirect('/staff-list-info/'.$staff_id);
     }
 
     public function staff_list_info($staff_id)

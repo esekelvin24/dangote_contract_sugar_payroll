@@ -99,7 +99,7 @@
                                                     <th class="exportable">Month</th>
                                                     <th class="exportable">Gross</th>
                                                     <th class="exportable">Payee</th>
-                                                    <th class="exportable">Overtime Days</th>
+                                                    <th class="exportable">Overtime Hrs</th>
                                                     <th class="exportable">Overtime Pay</th>
                                                     <th class="exportable">Absent</th>
                                                     <th class="exportable">Absent Deduction</th>
@@ -122,7 +122,7 @@
                                                     <th>Month</th>
                                                     <th>Gross</th>
                                                     <th>Payee</th>
-                                                    <th>Overtime Days</th>
+                                                    <th>Overtime Hrs</th>
                                                     <th>Overtime Pay</th>
                                                     <th>Absent</th>
                                                     <th>Absent Deduction</th>

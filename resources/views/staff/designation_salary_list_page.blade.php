@@ -37,7 +37,7 @@
                                 <div class="table-wrap">
                                     <div class="table- responsive">
                                             
-                                            <div class="row">
+                                           {{-- <div class="row">
 												<!--	<div class="col-lg-2" style="max-width:130px !important;">
 														<div class="form-group mb-0">
 															<label class="control-label mb-10 text-left">Start Date</label>
@@ -91,7 +91,7 @@
                                                                 <button onclick="do_filter()" type="button" class="btn btn-success btn-anim"><i class="icon-rocket"></i><span class="btn-text">Filter</span></button>
                                                             </div>
                                                         </div>
-												</div>
+												</div> --}}
                                         
                                         <div style="padding-top:5px;" class="input-group-btn">
                                             
@@ -150,7 +150,7 @@
                                                     <td>{{$val->created_by}}</td>
                                                     <td>{{$val->created}}</td>
                                                     <td><a id="{{$val->designation_id}}" href="{{url('/designation-salary-list/update/'.$val->designation_id)}}"  class="text-primary"><icon class="fa fa-pencil"></icon> Edit</a> | 
-                                                    <a id="{{$val->designation_id}}" onclick="take_action_blk('{{$val->designation_id}}')" href="javascript:void(0)" class="text-danger"><icon class="fa fa-trash"></icon> Delete</a></td>
+                                                    <a id="{{$val->designation_id}}" href="{{url('/designation-salary-list/delete/'.$val->designation_id.'~'.$val->salary_desc_code)}}"  class="text-danger"><icon class="fa fa-trash"></icon> Delete</a></td>
                                               </tr>
                                             @endforeach 
                                           
@@ -285,47 +285,46 @@
                         }
                 }
 
-                //bulk actions of selected checkbox
-                function take_action_blk(id)
-                {
-                    let app_ids = "";
-
-                    if(id !="")
-                    {
-                        app_ids = id;
-                    }else
-                    {
-
-                        
-                        
-                        $('tbody tr td input[type="checkbox"]').each(function(){
-                            if($(this).is(':checked'))
-                                {
-                                    app_ids = app_ids+""+$(this).val()+",";
-                                }
-                        });
-                    }
-                    
-                    //alert(app_ids);
-
-                    $.ajax({
-                        type: "get",
-                        url: SITEURL + "/designation-salary-list/delete/"+app_ids,
-                        success: function (data) {
-                            $('#datable_1').DataTable().ajax.reload();
-                        },
-                        error: function (data) {
-                            console.log('Error:', data);
-                        }
-                    });
-
-                }
-
                 
 
 
         
         </script>
+     
+<script>
 
+
+
+            @if(Session::get('success'))
+            
+                  swal({ 
+                        title: "Successful",   
+                        icon: "success", 
+                        text: "{{session::get('success')}}",
+                        confirmButtonColor: "#469408",   
+                      }).then((value) => {
+
+                        
+
+                    });
+
+                
+            @endif
+
+             @if(Session::get('error'))
+           
+                swal({ 
+                        title: "Error",   
+                        icon: "warning", 
+                        text: "{{session::get('error')}}",
+                        confirmButtonColor: "#469408",   
+                      }).then((value) => {
+
+                        
+
+                    });
+
+           @endif
+</script>
 
 @endsection 

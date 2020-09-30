@@ -250,7 +250,7 @@
                             },           
                             {data: 'designation_name', name: 'designation_name'},
                             {data: 'category_name', name: 'category_name'},
-                            {data: 'department_name', name: 'department_name', orderable: false, searchable: false},
+                            {data: 'department_name', name: 'department_name', orderable: false, searchable: true},
                             {data: 'created_by', name: 'created_by', orderable: false, searchable: false},
                             {data: 'created_at', name: 'created_at', orderable: false,searchable: false},
                             {data: null, orderable: false,searchable: false,
@@ -328,5 +328,41 @@
         
         </script>
 
+        
+<script>
+
+
+
+            @if(Session::get('success'))
+            
+                  swal({ 
+                        title: "Successful",   
+                        icon: "success", 
+                        text: "{{session::get('success')}}",
+                        confirmButtonColor: "#469408",   
+                      }).then((value) => {
+
+                        
+
+                    });
+
+                
+            @endif
+
+             @if(Session::get('error'))
+           
+                swal({ 
+                        title: "Error",   
+                        icon: "warning", 
+                        text: "{{session::get('error')}}",
+                        confirmButtonColor: "#469408",   
+                      }).then((value) => {
+
+                        
+
+                    });
+
+           @endif
+</script>
 
 @endsection 

@@ -1,0 +1,39 @@
+SELECT 
+      concrete_requests.concrete_request_no AS concrete_request_no, 
+      concrete_requests.request_raised_on AS request_raised_on, 
+      contracts.contract_number AS contract_number, 
+      companies.company_name AS company_name, 
+      concrete_requests.total_supply AS total_supply, 
+      concrete_requests.drawing_number_Rev1 AS drawing_number_Rev1, 
+      concrete_requests.request_status AS request_status, 
+      concrete_requests.supply_status AS supply_status, 
+      wbs.unit_number AS unit_number, 
+      users.name AS request_raised_by, 
+      users_copy.name AS to_be_approved_by_user, 
+      concrete_requests.end_record AS end_record, 
+      concrete_requests.concrete_request_id AS concrete_request_id, 
+      concrete_requests.required_by_date AS required_by_date, 
+      concrete_requests.required_quantity AS required_quantity, 
+      concrete_requests.contractor AS contractor, 
+      concrete_requests.to_be_approved_by AS to_be_approved_by, 
+      concrete_requests.approved_date AS approved_date,
+			concrete_requests.concrete_grade AS concrete_grade,
+			concrete_grades.concrete_grade_name AS concrete_grade_name,
+			users.id AS request_raised_by_id,
+			reconciliation_types.reconciliation_type_id,
+			reconciliation_types.reconciliation_type_name
+   FROM (((((((dbo.concrete_requests 
+      INNER JOIN dbo.wbs 
+      ON (((concrete_requests.unit_number = wbs.wbs_id) AND (concrete_requests.wbs_name = wbs.wbs_id)))) 
+      INNER JOIN dbo.contracts 
+      ON ((concrete_requests.contract_number = contracts.id))) 
+      INNER JOIN dbo.companies 
+      ON (((concrete_requests.contractor = companies.company_id) AND (contracts.company_id = companies.company_id)))) 
+      INNER JOIN dbo.users 
+      ON ((concrete_requests.requested_by = users.id))) 
+      INNER JOIN dbo.users_copy 
+      ON ((concrete_requests.to_be_approved_by = users_copy.id)))
+			INNER JOIN dbo.concrete_grades 
+      ON ((concrete_requests.concrete_grade = concrete_grades.concrete_grade_id )))
+			INNER JOIN reconciliation_types 
+			ON ((concrete_requests.reconciliation_type = reconciliation_types.reconciliation_type_id)))

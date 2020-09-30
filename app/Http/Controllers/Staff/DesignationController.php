@@ -37,8 +37,9 @@ class DesignationController extends Controller
             return datatables()->of($data)->make(true);
         }
         $category = DB::table('job_category')->get();
-        
+        $staff_type = DB::table('staff_type')->get();
         $dept_arr = DepartmentModel::all();  
+ 
         return view ('staff.designation_list_page', Utilities::get_menu_array(array("cat_array_list"=>$category,"dept_array_list"=>$dept_arr)));
     }
 
@@ -47,6 +48,7 @@ class DesignationController extends Controller
         $designation_name ="";
         $department_id = "";
         $category_id = "";
+        $staff_type_id = "";
         if ($op =="update")
         {
            $designation_obj = DB::table('designation')->where('designation_id', $designation_id)->first();
@@ -55,11 +57,14 @@ class DesignationController extends Controller
            $designation_name = isset($designation_obj->designation_name)?$designation_obj->designation_name:"";
            $department_id = isset($designation_obj->department_id)?$designation_obj->department_id:"";
            $category_id = isset($designation_obj->category_id)?$designation_obj->category_id:"";
+           $staff_type_id = isset($designation_obj->staff_type_id)?$designation_obj->staff_type_id:"";
         }
-        $category = DB::table('job_category')->get();
+
         
+        $category = DB::table('job_category')->get();
+        $staff_type = DB::table('staff_type')->get();
         $dept_arr = DepartmentModel::all();   
-        return view ('staff.create_designation_page', Utilities::get_menu_array(array('designation_id' => $designation_id ,"department_id"=> $department_id,"category_id" => $category_id,"op" => $op,"designation_name" =>$designation_name,"cat_array_list"=>$category,"dept_array_list"=>$dept_arr,"message"=>"none","code"=>"none")));
+        return view ('staff.create_designation_page', Utilities::get_menu_array(array('staff_type_id'=>$staff_type_id ,'staff_type'=>$staff_type,'designation_id' => $designation_id ,"department_id"=> $department_id,"category_id" => $category_id,"op" => $op,"designation_name" =>$designation_name,"cat_array_list"=>$category,"dept_array_list"=>$dept_arr,"message"=>"none","code"=>"none")));
     }
 
     public function deleteAllPermanently($id)
@@ -76,6 +81,7 @@ class DesignationController extends Controller
             'category_id' => 'required',
             'department_id' => 'required',
             'op' => 'required',
+            'staff_type_id' => 'required'
             
             ]);
 
@@ -84,6 +90,7 @@ class DesignationController extends Controller
             $department_id = $request->department_id;
             $category_id = $request->category_id;
             $designation_id = "";
+            $staff_type_id = $request->staff_type_id;
 
             if($request->op == "new")
             {
@@ -104,7 +111,8 @@ class DesignationController extends Controller
                 'designation_id' => $designation_id,
                 'category_id' => $category_id,
                 'created_by' => Auth::user()->email,
-                'created_at' => NOW()
+                'created_at' => NOW(),
+                'staff_type_id' => $staff_type_id
             ];
 
             try
@@ -130,7 +138,7 @@ class DesignationController extends Controller
                     {
                                 
                         $message = ''.$designation_name.' position has been updated successful ';
-                        $code = "200";
+                        //$code = "200";
                     } 
                 }
 
@@ -140,13 +148,17 @@ class DesignationController extends Controller
                
                 
                $message = ' Error creating '.$designation_name.' position please contact admin'; 
-               $code = "213";
+               //$code = "213";
+               return redirect('/designation-list')->with('error',$message);
             }
                 
-            $category = DB::table('job_category')->get();
-            $dept_arr = DepartmentModel::all(); 
+           // $category = DB::table('job_category')->get();
+            //$dept_arr = DepartmentModel::all(); 
 
-            return view ('staff.create_designation_page', Utilities::get_menu_array(array("department_id"=> $department_id, "cat_array_list"=>$category,"dept_array_list"=>$dept_arr,"op"=>$op, "category_id" => $category_id, 'designation_id' => $designation_id, 'designation_name' => $designation_name, "message"=>$message,"code"=>$code)));
+
+            return redirect('/designation-list')->with('success',$message);
+
+            //return view ('staff.create_designation_page', Utilities::get_menu_array(array("department_id"=> $department_id, "cat_array_list"=>$category,"dept_array_list"=>$dept_arr,"op"=>$op, "category_id" => $category_id, 'designation_id' => $designation_id, 'designation_name' => $designation_name, "message"=>$message,"code"=>$code)));
 
     }
 

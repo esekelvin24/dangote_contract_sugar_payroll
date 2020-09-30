@@ -76,6 +76,26 @@
 
                                                                   <div class="col-lg-2">
                                                                     <div class="form-group mb-0">
+                                                                        <span class="txt-danger" style="font-size:19px;">*</span>  <label class="control-label mb-10 text-left">Staff Type</label>
+                                                                        
+                                                                        <select required id="staff_type_id" name="staff_type_id" class="form-control" data-placeholder="Choose a Category" tabindex="1">
+                                                                            
+                                                                        <option value="">::Select a staff type::</option>
+                                                                         @if(count($staff_type) > 0)
+                                                                           @foreach ($staff_type as $val)
+                                                                           {{$dept_id = isset($dept_id)?$dept_id:""}}
+                                                                        <option {{ $val->staff_type_id == $staff_type_id ?"selected":"" }} value="{{$val->staff_type_id}}">{{$val->staff_type_name}}</option>
+                                                                           
+                                                                            @endforeach
+                                                                         @endif
+                                                                            
+                                                                         
+                                                                        </select>
+                                                                    </div>
+                                                                  </div>
+
+                                                                  <div class="col-lg-2">
+                                                                    <div class="form-group mb-0">
                                                                         <span class="txt-danger" style="font-size:19px;">*</span>  <label class="control-label mb-10 text-left">Job Category</label>
                                                                         
                                                                         <select required id="category_id" name="category_id" class="form-control" data-placeholder="Choose a Category" tabindex="1">
@@ -124,39 +144,6 @@
                     </div>		
                 </div>
             </div>
-           
-<script>
-
-
-
-            if ("{{$code}}" == "200")
-            {
-                  swal({ 
-                        title: "Successful",   
-                        icon: "success", 
-                        text: "{{$message}}",
-                        confirmButtonColor: "#469408",   
-                      }).then((value) => {
-
-                        
-
-                    });
-
-                
-            }else if ("{{$code}}" != "200" && "{{$code}}" != "none")
-            {
-                swal({ 
-                        title: "Error",   
-                        icon: "warning", 
-                        text: "{{$message}}",
-                        confirmButtonColor: "#469408",   
-                      }).then((value) => {
-
-                        
-
-                    });
-
-            }
-</script>
+   
 
 @endsection 

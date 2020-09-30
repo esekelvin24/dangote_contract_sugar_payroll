@@ -42,6 +42,16 @@
                          <a href="{{url('/enable-staff/'.$staff_details->first()->staff_id)}}"><button style="background:green !important; color:white !important;" type="button" class="btn btn-sm btn-flat btn-primary"><span class="btn-label"><i class="fa fa-check"></i></span> Activate</button></a>
                       @endif
 
+                      @php
+                           $user = Auth::user();
+                          
+                        
+                      @endphp
+
+                      @if ($staff_details->first()->status == 0 && ($user->roles->first()->id == 1 || $user->roles->first()->id == 2))
+                         <a href="{{url('/approve-staff/'.$staff_details->first()->staff_id)}}"><button style="background:green !important; color:white !important;" type="button" class="btn btn-sm btn-flat btn-primary"><span class="btn-label"><i class="fa fa-check"></i></span> Approve</button></a>
+                      @endif
+
 
                       @if($staff_details->first()->status == 1)
                          <a href="{{url('/enable-staff/'.$staff_details->first()->staff_id)}}"><button style="" type="button" class="btn btn-sm btn-flat btn-success"><span class="btn-label"><i class="fa fa-close"></i></span> Deactivate</button></a>

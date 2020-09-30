@@ -16,32 +16,26 @@ class DesignationSalaryController extends Controller
     public function index(Request $request)
     {
 
-        
+            $builder = DesignationSalaryModel::query();
+            $builder->selectRaw('*, created_at as created');
             if(!empty($request->start_date) && !empty($request->end_date))
             {
-                if (!empty($request->staff_type))
-                 {
-                    $data = DesignationSalaryModel::selectRaw('*, created_at as created')->whereBetween('created_at', array($request->start_date . " 00:00", $request->end_date . " 23:59"))
-                    ->where("staff_type_id","=",$request->staff_type)
-                    ->get();
-                 }else
-                 {
-                    $data = DesignationSalaryModel::selectRaw('*, created_at as created')->whereBetween('created_at', array($request->start_date . " 00:00", $request->end_date . " 23:59"))
-                    ->get(); 
-                 }
+                $builder->whereBetween('created_at', array($request->start_date . " 00:00", $request->end_date . " 23:59"));
             }
-            else
-            {
-                
-               
-                     $data = DesignationSalaryModel::selectRaw('*, created_at as created')->where("staff_type_id","LIKE","%".$request->staff_type."%")
-                    ->where("department_id","LIKE","%".$request->department_id."%")
-                    ->get();  
-     
-            }
-           
+
+            if (!empty($request->staff_type))
+             {
+                  $builder->where("staff_type_id","=",$request->staff_type);
+             }
+
+             if (!empty($request->department_id))
+             {
+                  $builder->where("department_id","LIKE","%".$request->department_id."%");
+             }
             
 
+            
+        $data = $builder->get();
         $staff_type = DB::table('staff_type')->get();
         $dept_arr = DepartmentModel::all();  
 
@@ -73,12 +67,22 @@ class DesignationSalaryController extends Controller
            
 
         }
+        
+        if($op =="delete")
+        {
+           $designation_arr = explode("~", $designation_id);
+           $designation_id = $designation_arr[0];
+           $salary_desc_code = $designation_arr[1];
+           DB::table('designation_salary_package')->where('designation_id', $designation_id)->where('salary_desc_code',$salary_desc_code)->delete();
+
+           return redirect('/designation-salary-list')->with('success','position has been deleted');
+        }
 
         
         $category = DB::table('job_category')->get();
         
         $dept_arr = DepartmentModel::all(); 
-        return view ('staff.create_salary_page', Utilities::get_menu_array(array("category_id"=> $category_id,"cat_array_list"=>$category,"salary" =>$salary,"options" => $options, "op"=>$op,"designation_id"=>$designation_id,"department_id"=>$department_id,"dept_array_list"=>$dept_arr,"message"=>"none","code"=>"none"))); 
+        return view ('staff.create_salary_page', Utilities::get_menu_array(array("cat_array_list"=>$category,"salary" =>$salary,"options" => $options, "op"=>$op,"designation_id"=>$designation_id,"department_id"=>$department_id,"dept_array_list"=>$dept_arr,"message"=>"none","code"=>"none"))); 
 
     }
 
